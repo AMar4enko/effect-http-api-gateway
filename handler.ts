@@ -1,6 +1,10 @@
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { adapter } from './adapter'
 
+/**
+ * API Gateway endpoint lambda handler
+ */
+
 export async function handler(
   event: APIGatewayEvent,
   lambdaContext: Context

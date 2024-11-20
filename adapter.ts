@@ -6,7 +6,7 @@ import * as HttpApiBuilder from '@effect/platform/HttpApiBuilder'
 import { Effect, Layer, ManagedRuntime } from 'effect'
 import * as HttpPlatform from '@effect/platform/HttpPlatform'
 import { createServerAdapter } from '@whatwg-node/server'
-import { Identity } from '../services/Identity'
+import { Identity } from './services/Identity'
 import * as HttpServerRequest from '@effect/platform/HttpServerRequest'
 import * as HttpServerResponse from '@effect/platform/HttpServerResponse'
 import { APIGatewayEventRequestContext } from 'aws-lambda'
@@ -46,12 +46,7 @@ export const adapter = createServerAdapter((req: Request, ...rest): Promise<Resp
    * My API Gateway uses Cognito authorizer, 
    * that supplies caller identity via second endpoint handler parameter
    * In my endpoint implementations I fetch identity from the context via 
-   * ```
-   * identityFromContext = FiberRef.get(FiberRef.currentContext).pipe(
-   *   Effect.map((ctx) => Context.unsafeGet(ctx, Identity))
-   * )
-   * 
-   * const identity = yield* identityFromContext
+   * const identity = yield* Identity.getFromContext
    */
 
   return app.pipe(
